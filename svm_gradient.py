@@ -18,19 +18,9 @@ def svm_gradient(w, b, x, y, C):
 
     """
 
-    grad_w = 0 # gradient
-    grad_b = 0 # loss        
-    
-
-    #######################################################################
-    # TODO:                                                               #
-    # Compute the gradient for a particular choice of w and b.            #
-    # Compute the partial derivatives and set grad_w and grad_b to the    #
-    # partial derivatives of the cost w.r.t. both parameters              #
-    #                                                                     #
-    #######################################################################
-            
-    lambda_  = 1/C        
+    grad_w = 0 
+    grad_b = 0 
+    lambda_ = 1/C        
     N = x.size      
     normw = np.linalg.norm(w)   
     w_t = np.transpose(w)
@@ -48,8 +38,4 @@ def svm_gradient(w, b, x, y, C):
     var2[preds] = 0
     grad_b = C * var2.sum()
     
-  
-    #######################################################################
-    #                         END OF YOUR CODE                            #
-    #######################################################################
     return grad_w, grad_b
