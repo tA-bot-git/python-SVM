@@ -26,38 +26,25 @@ def svm_solver(X, y, C, num_iter=50000, num_per_batch=32):
     w = np.zeros(X.shape[1])
     b = 0.
     for t in range(1, num_iter):
-        start = time.time()
-        #######################################################################
-        # TODO:                                                               #
-        # Perform one step of stochastic gradient descent:                    #
-        #   - Select a single training example at random                      #
-        #   - Update theta based on alpha and using gradient_function         #
-        #                                                                     #
-        #######################################################################
+        start = time.time()        
         
-        # 1st Step: Sample a random mini-batch of size num_per_batch (done)                       
-        
+        # 1st Step: Sample a random mini-batch of size num_per_batch (done)                               
         samp = np.random.choice(np.arange(X.shape[0]), size = num_per_batch)
         X_ = X[samp]
         Y_ = y[samp]
         
-        # 2nd Step: Compute the learning-rate n_t=1/(lambda*t) where lambda=1/C (done)
-            
+        # 2nd Step: Compute the learning-rate n_t=1/(lambda*t) where lambda=1/C (done)            
         lambda_ = 1/C
         n_t = 1 / (lambda_ * (t+1))
 
         # 3rd Step: Compute the gradients and update the parameters as 
-        # w:=w-n_t*grad_w and b:=b-n_t*grad_b
-        
+        # w:=w-n_t*grad_w and b:=b-n_t*grad_b        
         grad_w, grad_b = svm_gradient(w, b, X_, Y_, C)
         w = w - n_t * grad_w       
         b = b - n_t * grad_b
         
         # http://ttic.uchicago.edu/~nati/Publications/PegasosMPB.pdf        
-            
-        #######################################################################
-        #                         END OF YOUR CODE                            #
-        #######################################################################
+        
         if t % 5000 == 0:
             exec_time = time.time() - start
             loss = svm_loss(w, b, X, y, C)
