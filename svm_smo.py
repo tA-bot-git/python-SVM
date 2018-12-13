@@ -39,19 +39,8 @@ def linear(x, y, b=1):
         Linear kernel between x and y
     """
     
-    result = None
-    
-    #######################################################################
-    # TODO:                                                               #
-    # Compute the linear kernel between x and y                           #
-    #######################################################################   
-    result = np.dot(x, y.T)+b
-    pass
-
-    #######################################################################
-    #                         END OF YOUR CODE                            #
-    #######################################################################
-
+    result = None           
+    result = np.dot(x, y.T)+b    
     return result
     
     
@@ -69,12 +58,7 @@ def gaussian(x, y, sigma=1):
     """
     
     result = None
-    
-    #######################################################################
-    # TODO:                                                               #
-    # Compute the Gaussian kernel between x and y                         #
-    #######################################################################
-    #result = np.exp(-(np.absolute(x-y)**2)/2*(sigma**2))
+   
     if np.ndim(x) == 1 and np.ndim(y) == 1:
         result = np.exp(- np.linalg.norm(x - y) / (2 * sigma ** 2))
     elif (np.ndim(x) > 1 and np.ndim(y) == 1) or (np.ndim(x) == 1 and np.ndim(y) > 1):
@@ -82,11 +66,7 @@ def gaussian(x, y, sigma=1):
     elif np.ndim(x) > 1 and np.ndim(y) > 1:
         result = np.exp(- np.linalg.norm(x[:, np.newaxis] - y[np.newaxis, :], axis=2) / (2 * sigma ** 2))
     pass
-    
-    #######################################################################
-    #                         END OF YOUR CODE                            #
-    #######################################################################
-      
+
     return result
 
 
@@ -103,19 +83,8 @@ def objective_function(alphas, y,kernel, X):
         Value of the objective function
     """
     
-    result = None
-    
-    #######################################################################
-    # TODO:                                                               #
-    # Compute the objective function                                      #
-    #######################################################################
-    result = np.sum(alphas) - 0.5 * np.sum(y * y * kernel(X, X) * alphas * alphas) #correct
-    pass
-
-    #######################################################################
-    #                         END OF YOUR CODE                            #
-    #######################################################################
-    
+    result = None        
+    result = np.sum(alphas) - 0.5 * np.sum(y * y * kernel(X, X) * alphas * alphas) #correct    
     return result
 
 
@@ -134,20 +103,9 @@ def decision_function(alphas, target, kernel, X_train, x_test, b):
         Output of decision function
     """
     
-    result = None
-    
-    #######################################################################
-    # TODO:                                                               #
-    # Compute the decision function                                       #
-    #######################################################################
-    #result = (alphas * target) @ kernel(X_train, x_test) - b #correct
-    result = np.dot((alphas * target), kernel(X_train, x_test)) - b
-    pass
-    
-    #######################################################################
-    #                         END OF YOUR CODE                            #
-    #######################################################################
-    
+    result = None        
+    #result = (alphas * target) @ kernel(X_train, x_test) - b #only for python3.x+
+    result = np.dot((alphas * target), kernel(X_train, x_test)) - b                
     return result
 
 
@@ -215,11 +173,7 @@ def take_step(i1, i2, model):
     if (eta < 0):
         a2 = alph2 - y2 * (E1 - E2) / eta
         # Clip a2 based on bounds L & H
-        
-        #######################################################################
-        # TODO:                                                               #
-        # Clip a2 based on the last equation in the notes                     #
-        #######################################################################
+                
         if L < a2 < H:
             a2 = a2
         elif (a2 <= L):
@@ -227,11 +181,7 @@ def take_step(i1, i2, model):
         elif (a2 >= H):
             a2 = H
         pass
-            
-        #######################################################################
-        #                         END OF YOUR CODE                            #
-        #######################################################################
-            
+                                
     # If eta is non-negative, move new a2 to bound with greater objective function value
     else:
         alphas_adj = model.alphas.copy()
